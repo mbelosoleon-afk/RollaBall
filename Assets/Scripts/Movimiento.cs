@@ -2,27 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     // player's component rigidbody
     private Rigidbody rb;
+    
+    private int count;
+    
     // movement values
     private float movementX;
     private float movementY;
     // this is the speed of the player
     // you can change it in the Unity Editor
     public float speed = 10.0f;
+    public TextMeshProUGUI countText;
     /**
     * Start is called before the first frame update
     * only once in the game
     */ 
     void Start()
     {
+        count = 0; 
         // get the rigidbody component
         rb = GetComponent <Rigidbody>();
         // debug message, you can see it in the console
         Debug.Log("Hello, I'am a message in Start");
+        SetCountText();
     }
     /**
     * Update is called once per frame
@@ -46,6 +53,11 @@ public class PlayerController : MonoBehaviour
         movementX = movementVector.x; 
         movementY = movementVector.y; 
         
+    }
+    
+    void SetCountText() 
+    {
+        countText.text =  "Count: " + count.ToString();
     }
 
     /**
@@ -99,6 +111,8 @@ public class PlayerController : MonoBehaviour
         {
  // Deactivate the collided object (making it disappear).
             other.gameObject.SetActive(false);
+            count = count + 1;
+            SetCountText();
         }
     }
 
