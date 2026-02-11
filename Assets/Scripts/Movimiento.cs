@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
     // this is the speed of the player
     // you can change it in the Unity Editor
     public float speed = 10.0f;
+    public float jumpForce = 5.0f;
     public TextMeshProUGUI countText;
+    private bool isGrounded;
     /**
     * Start is called before the first frame update
     * only once in the game
@@ -68,7 +70,12 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Hello!, I'm OnFire");
 
         // apply a vertical force to the player
-        rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse); 
+        if (isGrounded) // SOLO si está en el suelo
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false; // Al saltar, ya no está en el suelo
+            Debug.Log("Saltando...");
+        }
     }
     
     /**
@@ -101,7 +108,28 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("X: " + movementX + " Y: " + movementY + " Z: 0");
         
         // apply the force to the player
-        rb.AddForce(movement); 
+        rb.AddForce(movement);
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        // Revisamos todos los puntos de contacto de la colisión
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            // El valor contact.normal.y nos dice hacia dónde apunta la cara
+            // Si el valor es cercano a 1, es una superficie plana (suelo)
+            // Si es cercano a 0, es una pared vertical
+            if (contact.normal.y > 0.6f) 
+            {
+                isGrounded = true;
+                return; // Salimos del bucle si ya encontramos suelo
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        // Cuando dejamos de tocar el suelo
+        isGrounded = false;
     }
 
  void OnTriggerEnter(Collider other) 
