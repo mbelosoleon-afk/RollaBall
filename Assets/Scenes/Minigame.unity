@@ -5217,8 +5217,8 @@ Transform:
   m_GameObject: {fileID: 904190911}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.36, y: 0, z: 12.17}
-  m_LocalScale: {x: 0.5, y: 5, z: 2.5}
+  m_LocalPosition: {x: 15.29, y: 0, z: 11.35}
+  m_LocalScale: {x: 0.5, y: 5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 175027119}
@@ -7215,6 +7215,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickUp (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6764559695474847000, guid: cf982e447ec90eda5810a5556aae0967, type: 3}
+      propertyPath: m_TagString
+      value: PickUp
+      objectReference: {fileID: 0}
     - target: {fileID: 7657967363268891651, guid: cf982e447ec90eda5810a5556aae0967, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.26
@@ -8069,6 +8073,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickUp (64)
       objectReference: {fileID: 0}
+    - target: {fileID: 6764559695474847000, guid: cf982e447ec90eda5810a5556aae0967, type: 3}
+      propertyPath: m_TagString
+      value: PickUp
+      objectReference: {fileID: 0}
     - target: {fileID: 7657967363268891651, guid: cf982e447ec90eda5810a5556aae0967, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.34
@@ -8108,6 +8116,10 @@ PrefabInstance:
     - target: {fileID: 7657967363268891651, guid: cf982e447ec90eda5810a5556aae0967, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8021569145369392816, guid: cf982e447ec90eda5810a5556aae0967, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
