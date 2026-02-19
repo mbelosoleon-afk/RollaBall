@@ -6,52 +6,55 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    // player's component rigidbody
+    //Componenteque permite que el objeto tenga gravedad y colisiones físicas
     private Rigidbody rb;
     
+    //Cuenta de pnutuación
     private int count;
     
     // movement values
     private float movementX;
     private float movementY;
-    // this is the speed of the player
-    // you can change it in the Unity Editor
+    //Velocidad y fuerza de salto
     public float speed = 10.0f;
     public float jumpForce = 5.0f;
+    //Texto para la cuenta
     public TextMeshProUGUI countText;
+    //Detecta si el jugador está tocando el suelopara evitar que salte infinitamente
     private bool isGrounded;
     /**
-    * Start is called before the first frame update
-    * only once in the game
+    * Start se llama antes del primer frame de actualización
+    * solo una vez en el juego
     */ 
     void Start()
     {
         count = 0; 
-        // get the rigidbody component
+        // Obtener el componente RigidBody
         rb = GetComponent <Rigidbody>();
-        // debug message, you can see it in the console
+        // Mensaje de depuración
         Debug.Log("Hello, I'am a message in Start");
         SetCountText();
     }
     /**
-    * Update is called once per frame
-    * it's called every frame
+    * Update se llama una vez por frame
+    * se llama en cada frame
     */
     void Update()
     {
-        // debug message, you can see it in the console
-        // Warning: this message is called every frame
-        // Debug.Log("Hello, I'am a message in Update");
+        // mensaje de depuración, puedes verlo en la consola
+        // Advertencia: este mensaje se llama en cada frame
+        // Debug.Log("Hola, soy un mensaje en Update");
     }   
 
     /**
-    * OnMove is called when the player moves
+    * Método para mover el player, captura esos valore en Vector2 (eje X,Y)
+     * y los guarda en las variables movementX y movementY
     */
     void OnMove (InputValue movementValue)
     {
-        // take values of the InputSystem
+        // tomar valores del InputSystem
         Vector2 movementVector = movementValue.Get<Vector2>();
-        // update the force/movement values 
+        // actualizar los valores de fuerza/movimiento
         movementX = movementVector.x; 
         movementY = movementVector.y; 
         
@@ -63,13 +66,13 @@ public class PlayerController : MonoBehaviour
     }
 
     /**
-     * Jump with space bar
+     * Salta con la barra espaciadora o el click del ratón
      */
     void OnFire(){
-        // debug message, you can see it in the console
+        // Mensaje de depuración
         Debug.Log("Hello!, I'm OnFire");
 
-        // apply a vertical force to the player
+        // Confirma si estás tocando el suelo para no saltar infinitamente
         if (isGrounded) // SOLO si está en el suelo
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -79,35 +82,35 @@ public class PlayerController : MonoBehaviour
     }
     
     /**
-    * FixedUpdate is called once per frame
-    * it's called every frame
-    * Difference between Update and FixedUpdate
+    * FixedUpdate se llama una vez por frame de física
+    * se llama en cada frame
+    * Diferencia entre Update y FixedUpdate:
     * https://learn.unity.com/tutorial/update-and-fixedupdate
     */
     private void FixedUpdate() 
     {
-        // jump with space bar
-        // this method is different from the InputSystem
-        // It's original Unity Input, more simple
+        // saltar con la barra espaciadora
+        // este método es diferente al del InputSystem
+        // Es el Input original de Unity, más simple
         if (Input.GetKeyDown(KeyCode.Space)) {
             OnFire();
         }
 
-        // create a vector with the movement values
-        // It's not really a movement, it's a force
-        // The effect is like a pool game
-        // The player is the ball and the force is the stick
-        // The player moves in the direction of the force
-        // The player stops when the force is zero
-        // The player moves faster when the force is higher
-        // The speed is the force value
+        // crear un vector con los valores de movimiento
+        // No es realmente un movimiento de traslación, es una fuerza
+        // El efecto es como en un juego de billar
+        // El jugador es la bola y la fuerza es el taco
+        // El jugador se mueve en la dirección de la fuerza
+        // El jugador se detiene cuando la fuerza es cero
+        // El jugador se mueve más rápido cuando la fuerza es mayor
+        // La velocidad (speed) es el valor de la fuerza
         Vector3 movement = new Vector3 (speed*movementX, 0.0f , speed*movementY);
 
-        // debug force values
-        // Warning: this message is called every frame
+        // depurar valores de fuerza
+        // Advertencia: este mensaje se llama en cada frame
         // Debug.Log("X: " + movementX + " Y: " + movementY + " Z: 0");
         
-        // apply the force to the player
+        // aplicar la fuerza al jugador
         rb.AddForce(movement);
     }
     private void OnCollisionStay(Collision collision)
@@ -132,12 +135,13 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
     }
 
+    //Recolección de objetos
  void OnTriggerEnter(Collider other) 
     {
- // Check if the object the player collided with has the "PickUp" tag.
+        // Comprobar si el objeto con el que colisionó el jugador tiene la etiqueta "PickUp".
  if (other.gameObject.CompareTag("PickUp")) 
         {
- // Deactivate the collided object (making it disappear).
+ // Desactivar el objeto colisionado (haciéndolo desaparecer).
             other.gameObject.SetActive(false);
             count = count + 1;
             SetCountText();
