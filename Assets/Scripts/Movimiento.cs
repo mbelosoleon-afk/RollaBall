@@ -68,10 +68,11 @@ public class PlayerController : MonoBehaviour
     {
         countText.text =  "Count: " + count.ToString();
         // Comprueba cuantos puntos tienes
-        if (count >= 58)
+        if (count >= 1)
         {
             // Display the win text.
             winTextObject.SetActive(true);
+            Destroy(GameObject.FindGameObjectWithTag("Enemy"));
         }
     }
 
@@ -157,6 +158,16 @@ public class PlayerController : MonoBehaviour
             SetCountText();
         }
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Destroy the current object
+            Destroy(gameObject); 
+            // Update the winText to display "You Lose!"
+            winTextObject.gameObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+        }
+    }
 
 }
