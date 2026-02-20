@@ -169,5 +169,29 @@ public class PlayerController : MonoBehaviour
             winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
         }
     }
+/**
+ * {
+    public Transform objetivo; // Arrastra el Cubo aquí desde el Inspector
+    public float distanciaLimite = 5f; // El umbral para decidir si está "cerca"
 
+    void Update()
+    {
+        if (objetivo != null)
+        {
+            // Calculamos la distancia entre este objeto (la esfera) y el objetivo (el cubo)
+            float distancia = Vector3.Distance(transform.position, objetivo.position);
+
+            // Verificamos si la distancia es menor al límite
+            if (distancia < distanciaLimite)
+            {
+                Debug.Log("Estado: CERCA del cubo. Distancia: " + distancia.ToString("F2"));
+            }
+            else
+            {
+                Debug.Log("Estado: LEJOS del cubo. Distancia: " + distancia.ToString("F2"));
+            }
+        }
+    }
+}
+ */
 }
