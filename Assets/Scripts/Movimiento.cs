@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     //Detecta si el jugador está tocando el suelopara evitar que salte infinitamente
     private bool isGrounded;
+    
+    //Texto de victoria
+    public GameObject winTextObject;
     /**
     * Start se llama antes del primer frame de actualización
     * solo una vez en el juego
@@ -34,6 +37,7 @@ public class PlayerController : MonoBehaviour
         // Mensaje de depuración
         Debug.Log("Hello, I'am a message in Start");
         SetCountText();
+        winTextObject.SetActive(false);
     }
     /**
     * Update se llama una vez por frame
@@ -63,6 +67,12 @@ public class PlayerController : MonoBehaviour
     void SetCountText() 
     {
         countText.text =  "Count: " + count.ToString();
+        // Comprueba cuantos puntos tienes
+        if (count >= 58)
+        {
+            // Display the win text.
+            winTextObject.SetActive(true);
+        }
     }
 
     /**
